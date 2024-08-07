@@ -1,5 +1,6 @@
 import 'package:dummyjson/model/posts_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PostCard extends StatelessWidget {
   final Post post;
@@ -12,9 +13,8 @@ class PostCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Align content to the left
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title
             Text(
               post.title ?? 'No Title',
               style: const TextStyle(
@@ -22,28 +22,23 @@ class PostCard extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8.0), // Add some vertical spacing
-
-            // Body (optional)
+            const SizedBox(height: 8.0),
             if (post.body != null)
               Text(
                 post.body!,
-                maxLines: 3, // Limit body text lines to avoid overflow
-                overflow: TextOverflow.ellipsis, // Add ellipsis for long text
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
-            const SizedBox(height: 8.0), // Add spacing after body
-
-            // Tags (optional)
+            const SizedBox(height: 8.0),
             if (post.tags != null && post.tags!.isNotEmpty)
               Wrap(
-                spacing: 8.0, // Spacing between tags
-                children: post.tags!.map((tag) => Chip(label: Text(tag))).toList(),
+                spacing: 8.0,
+                children:
+                    post.tags!.map((tag) => Chip(label: Text(tag))).toList(),
               ),
-
-            // Reactions (optional)
             if (post.reactions != null)
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align icons
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -51,10 +46,18 @@ class PostCard extends StatelessWidget {
                       Text(' ${post.reactions!.likes ?? 0}'),
                     ],
                   ),
+                  SizedBox(width: 10.w),
                   Row(
                     children: [
                       const Icon(Icons.thumb_down_alt_outlined),
                       Text(' ${post.reactions!.dislikes ?? 0}'),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      const Icon(Icons.remove_red_eye_outlined),
+                      Text(' ${post.views}'),
                     ],
                   ),
                 ],

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dummyjson/controller/homepage_controller.dart';
 import 'package:dummyjson/view/widgets/product_card.dart';
-import 'package:dummyjson/view/widgets/showreviews.dart';
+import 'package:dummyjson/view/widgets/show_reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

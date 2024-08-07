@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:dummyjson/model/comments.dart';
 import 'package:dummyjson/model/posts_model.dart';
 import 'package:dummyjson/model/products_model.dart';
 import 'package:dummyjson/view/widgets/constant.dart';
@@ -23,9 +24,11 @@ class HomePageController extends GetxController {
   //posts
   PostsModel? postsModel;
 
-  int postsPageIndex = 0;
-  int postsCurrentPage = 0;
-  bool postsPaginatedLoading = false;
+  // comments
+  CommentsModel? commentsModel;
+  bool commentIsLoading = false;
+  bool commentisError = false;
+  String? commenterrorMessage;
 
   @override
   void onInit() {
@@ -158,4 +161,42 @@ class HomePageController extends GetxController {
     update();
   }
 
+  Future<void> fetchComments(int id) async {
+    try {
+      commentIsLoading = true;
+      update();
+      commentisError = false;
+      commenterrorMessage = null;
+
+      final response = await http.get(
+        Uri.parse('$url/comments/post/$id'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        final parseJson = json.decode(response.body);
+        commentsModel = CommentsModel.fromJson(parseJson);
+
+        commentisError = false;
+        commenterrorMessage = null;
+      } else {
+        commenterrorMessage = jsonDecode(response.body)['message'];
+        commentisError = true;
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        commenterrorMessage = 'Please check your network and try again';
+      } else if (e is TimeoutException) {
+        commenterrorMessage = 'Taking longer than usual. Try again?';
+      } else {
+        commenterrorMessage = 'Something went wrong.';
+      }
+      commentisError = true;
+    } finally {
+      commentIsLoading = false;
+    }
+
+    update();
+  }
 }
