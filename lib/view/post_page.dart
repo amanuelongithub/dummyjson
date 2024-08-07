@@ -33,8 +33,6 @@ class _PostsPageState extends State<PostsPage> {
                     return GestureDetector(
                       onTap: () async {
                         _.fetchComments(_.postsModel!.posts![index].id!);
-                        // if (_.commentsModel!.comments != null &&
-                        //     _.commentsModel!.comments!.isNotEmpty) {
                         showModalBottomSheet(
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
@@ -42,13 +40,10 @@ class _PostsPageState extends State<PostsPage> {
                           builder: (BuildContext context) {
                             return SizedBox(
                               height: 400.h,
-                              child: ShowComments(
-
-                              ),
+                              child: const ShowComments(),
                             );
                           },
                         );
-                        // }
                       },
                       child: PostCard(post: _.postsModel!.posts![index]),
                     );

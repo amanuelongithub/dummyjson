@@ -36,6 +36,7 @@ class PostCard extends StatelessWidget {
                 children:
                     post.tags!.map((tag) => Chip(label: Text(tag))).toList(),
               ),
+            SizedBox(height: 5.w),
             if (post.reactions != null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
