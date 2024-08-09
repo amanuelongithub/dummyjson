@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -20,10 +19,8 @@ class _VideoplayerPageState extends State<VideoplayerPage> {
   void initState() {
     super.initState();
     log(Uri.parse(widget.url).toString());
-    controller = VideoPlayerController.networkUrl(
-      Uri.parse(
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
-    )
+    controller = VideoPlayerController.networkUrl(Uri.parse(widget.url),
+        httpHeaders: {'x-apikey-header': 'api-access-key-5544'})
       ..addListener(() => setState(() {}))
       ..setLooping(true)
       ..initialize().then((_) {
