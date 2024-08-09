@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dummyjson/controller/homepage_controller.dart';
 import 'package:dummyjson/view/widgets/product_card.dart';
 import 'package:dummyjson/view/widgets/show_reviews.dart';
@@ -15,11 +13,9 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_scrollListner);
     Get.put(HomePageController());
   }
 
@@ -33,7 +29,6 @@ class _ProductsPageState extends State<ProductsPage> {
           return Center(child: Text(_.errorMessage ?? "Something went wrong"));
         } else {
           return SingleChildScrollView(
-              controller: _scrollController,
               clipBehavior: Clip.none,
               scrollDirection: Axis.vertical,
               child: Padding(
@@ -69,14 +64,5 @@ class _ProductsPageState extends State<ProductsPage> {
         }
       }),
     );
-  }
-
-  void _scrollListner() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        !Get.find<HomePageController>().productsPaginatedLoading) {
-      log('usucbdjbvjbdv0');
-      Get.find<HomePageController>().fetchPaginatedProductes();
-    }
   }
 }

@@ -5,14 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class PostsPage extends StatefulWidget {
+class PostsPage extends StatelessWidget {
   const PostsPage({super.key});
 
-  @override
-  State<PostsPage> createState() => _PostsPageState();
-}
-
-class _PostsPageState extends State<PostsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +23,8 @@ class _PostsPageState extends State<PostsPage> {
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Column(
-                      children: List.generate(_.productsModel!.products!.length,
-                          (index) {
+                      children:
+                          List.generate(_.postsModel!.posts!.length, (index) {
                     return GestureDetector(
                       onTap: () async {
                         _.fetchComments(_.postsModel!.posts![index].id!);

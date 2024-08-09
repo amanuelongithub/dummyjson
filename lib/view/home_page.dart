@@ -1,5 +1,6 @@
 import 'package:dummyjson/view/post_page.dart';
 import 'package:dummyjson/view/product_page.dart';
+import 'package:dummyjson/view/video_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +17,8 @@ class _HomePageState extends State<HomePage> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     ProductsPage(),
-    PostsPage()
+    PostsPage(),
+    VideoPage()
   ];
 
   void _onItemTapped(int index) {
@@ -43,6 +45,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.post_add),
             label: 'Post',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_call),
+            label: 'Video',
           ),
         ],
         currentIndex: _selectedIndex,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dummyjson/controller/homepage_controller.dart';
 import 'package:dummyjson/view/widgets/product_card.dart';
 import 'package:dummyjson/view/widgets/show_reviews.dart';
@@ -15,14 +13,6 @@ class PlayerPage extends StatefulWidget {
 }
 
 class _PlayerPageState extends State<PlayerPage> {
-  final ScrollController _scrollController = ScrollController();
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_scrollListner);
-    Get.put(HomePageController());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +23,6 @@ class _PlayerPageState extends State<PlayerPage> {
           return Center(child: Text(_.errorMessage ?? "Something went wrong"));
         } else {
           return SingleChildScrollView(
-              controller: _scrollController,
               clipBehavior: Clip.none,
               scrollDirection: Axis.vertical,
               child: Padding(
@@ -69,14 +58,5 @@ class _PlayerPageState extends State<PlayerPage> {
         }
       }),
     );
-  }
-
-  void _scrollListner() {
-    if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent &&
-        !Get.find<HomePageController>().productsPaginatedLoading) {
-      log('usucbdjbvjbdv0');
-      Get.find<HomePageController>().fetchPaginatedProductes();
-    }
   }
 }
